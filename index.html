@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="md5.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('input:password').keyup(function(){
+                var one1 = $('#one1');
+                var two1 = $('#two1');
+                var two2 = $('#two2');
+                if(one1.val() != '' && two1.val() != '' && two1.val() == two2.val()){
+                    var hash = CryptoJS.MD5(one1.val()+two1.val()).toString();
+                    var truncated = hash.substr(0, 10);
+                    var upper = truncated+one1.val().substr(0,1).toUpperCase();
+                    var lower = upper+one1.val().substr(1,1).toLowerCase();
+                    var full = lower+"!";
+                    $('#md5').val(full);
+                }
+                else
+                    $('#md5').val('');
+            });
+            $('#md5').click(function(){
+                document.getElementById("md5").selectionStart = 0
+                document.getElementById("md5").selectionEnd = 32
+            });
+        });
+    </script>
+    <style type="text/css">
+        input {
+            display: block;
+            margin-bottom: 5px;
+            width: 92%;
+            font-size: 16pt;
+        }
+    </style>
+</head>
+<body>
+    <input id="one1" type="password"/>
+    <input id="two1" type="password"/>
+    <input id="two2" type="password"/>
+    <input id="md5" size="32"/>
+</body>
+</html>
+
